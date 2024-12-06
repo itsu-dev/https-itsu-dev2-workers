@@ -1,5 +1,6 @@
 import {Context, Hono} from 'hono';
 import {StatusCode} from "hono/utils/http-status";
+import {cors} from "hono/cors";
 
 type Bindings = {
     DB: D1Database;
@@ -10,6 +11,7 @@ const STATUS_ERROR = 0;
 const STATUS_OK = 1;
 
 const app = new Hono<{ Bindings: Bindings }>();
+app.use('/api/*', cors());
 
 // haiku
 app.get('/api/haiku/latest', async (c) => {
